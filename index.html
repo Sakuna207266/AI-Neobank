@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vero — Banking Built for Gig Workers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo" onclick="showPage('home')">
+      <span class="logo-mark">V</span>
+      <span class="logo-text">Vero</span>
+    </a>
+    <div class="nav-links">
+      <a href="#" onclick="showPage('ai')">AI Insights</a>
+      <a href="#" onclick="showPage('app')">The App</a>
+      <a href="#" onclick="showPage('deposit')">Deposit</a>
+      <a href="#" onclick="showPage('card')">Card</a>
+      <a href="#" onclick="showPage('credit')">Credit</a>
+      <a href="#" onclick="showPage('about')">About</a>
+    </div>
+    <button class="cta-btn" onclick="openWaitlist()">Join the Waitlist</button>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" onclick="showPage('ai');toggleMobileMenu()">AI Insights</a>
+    <a href="#" onclick="showPage('app');toggleMobileMenu()">The App</a>
+    <a href="#" onclick="showPage('deposit');toggleMobileMenu()">Deposit</a>
+    <a href="#" onclick="showPage('card');toggleMobileMenu()">Card</a>
+    <a href="#" onclick="showPage('credit');toggleMobileMenu()">Credit</a>
+    <a href="#" onclick="showPage('about');toggleMobileMenu()">About</a>
+    <button class="cta-btn" onclick="openWaitlist()">Join the Waitlist</button>
+  </div>
+</nav>
+
+<!-- WAITLIST MODAL -->
+<div id="waitlistModal" class="modal-overlay" onclick="closeWaitlist(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeWaitlist()">✕</button>
+    <div class="modal-logo">
+      <span class="logo-mark">V</span>
+    </div>
+    <h2>Join the Waitlist</h2>
+    <p>Be among the first Canadians to experience banking built for how you actually earn.</p>
+    <div class="modal-form">
+      <input type="text" placeholder="First name" id="wlName">
+      <input type="email" placeholder="Email address" id="wlEmail">
+      <select id="wlPlatform">
+        <option value="" disabled selected>Which platforms do you work on?</option>
+        <option>Uber / Lyft</option>
+        <option>DoorDash / SkipTheDishes</option>
+        <option>Instacart</option>
+        <option>Amazon Flex</option>
+        <option>Multiple platforms</option>
+        <option>Other freelance / contract work</option>
+      </select>
+      <button class="submit-btn" onclick="submitWaitlist()">Reserve My Spot</button>
+    </div>
+    <p class="modal-fine">No credit card. No commitment. Just early access.</p>
+    <div id="waitlistSuccess" class="waitlist-success" style="display:none">
+      <div class="success-icon">✓</div>
+      <h3>You're on the list.</h3>
+      <p>We'll reach out when Vero launches in your city.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGES CONTAINER -->
+<div id="pages">
+
+<!-- ===== HOME PAGE ===== -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Canada's Gig Economy Deserves Better Banking</div>
+      <h1 class="hero-title">Your income is dynamic.<br><em>Your bank should be too.</em></h1>
+      <p class="hero-subtitle">Vero is an AI-powered neobank built for Canadians who earn across multiple gig platforms. Real-time insights. Proactive guidance. Banking that actually works for you.</p>
+      <div class="hero-actions">
+        <button class="cta-btn large" onclick="openWaitlist()">Join the Waitlist</button>
+        <a href="#" class="ghost-btn" onclick="showPage('ai')">See How It Works →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">700K+</span><span class="stat-label">Canadians in the gig economy</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">$0</span><span class="stat-label">Monthly fees to start</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">AI</span><span class="stat-label">Personalized financial copilot</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <canvas id="earningsPulse" width="520" height="320"></canvas>
+      <div class="hero-phone-mockup">
+        <div class="phone-screen">
+          <div class="phone-header">
+            <div class="phone-greeting">Good morning, Alex</div>
+            <div class="phone-balance">$3,247.82</div>
+            <div class="phone-sub">Total available</div>
+          </div>
+          <div class="phone-insight">
+            <div class="insight-dot"></div>
+            <div class="insight-text">Your rent of $1,850 is due in 4 days — you're on track ✓</div>
+          </div>
+          <div class="phone-earnings-bar">
+            <div class="earnings-label">This week's earnings</div>
+            <div class="earnings-platforms">
+              <div class="platform-bar">
+                <span>Uber</span>
+                <div class="bar-track"><div class="bar-fill" style="width:62%"></div></div>
+                <span>$186</span>
+              </div>
+              <div class="platform-bar">
+                <span>DoorDash</span>
+                <div class="bar-track"><div class="bar-fill" style="width:41%"></div></div>
+                <span>$124</span>
+              </div>
+              <div class="platform-bar">
+                <span>Instacart</span>
+                <div class="bar-track"><div class="bar-fill" style="width:28%"></div></div>
+                <span>$83</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM STRIP -->
+  <section class="problem-strip">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="problem-item">
+          <div class="problem-icon">⚡</div>
+          <h3>Income swings 30–50%</h3>
+          <p>Week to week, your earnings fluctuate. Your bills don't. Most banks ignore this reality.</p>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">🔀</div>
+          <h3>Earnings across 4 apps</h3>
+          <p>No single view of your total income. Mental math across platforms is exhausting and error-prone.</p>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">🚫</div>
+          <h3>Declined for credit</h3>
+          <p>No T4. No pay stub. No loan. Traditional lenders can't see your income — even when it's stable.</p>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">📉</div>
+          <h3>Backward-looking apps</h3>
+          <p>Generic budgeting tools show what already happened. You need to know what's coming.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION SECTION -->
+  <section class="solution-section">
+    <div class="container">
+      <div class="section-tag">The Solution</div>
+      <h2 class="section-title">One account. Total clarity.</h2>
+      <p class="section-sub">Vero connects your gig platforms and bank account to give you a complete, forward-looking picture of your finances — not just a transaction history.</p>
+      <div class="solution-grid">
+        <div class="solution-card" onclick="showPage('ai')">
+          <div class="sol-num">01</div>
+          <h3>AI Insights Engine</h3>
+          <p>Proactive alerts before bills are due. Shortfall detection with action plans. Earnings optimization by platform, time, and location.</p>
+          <div class="sol-arrow">→</div>
+        </div>
+        <div class="solution-card" onclick="showPage('deposit')">
+          <div class="sol-num">02</div>
+          <h3>Full Deposit Account</h3>
+          <p>Canadian routing number for direct deposit from all your gig platforms. Interac e-Transfer, bill pay, and ATM access built in.</p>
+          <div class="sol-arrow">→</div>
+        </div>
+        <div class="solution-card" onclick="showPage('card')">
+          <div class="sol-num">03</div>
+          <h3>Vero Card</h3>
+          <p>A Mastercard debit card that works everywhere. Spend your gig earnings the same day they land. No holds. No delays.</p>
+          <div class="sol-arrow">→</div>
+        </div>
+        <div class="solution-card" onclick="showPage('credit')">
+          <div class="sol-num">04</div>
+          <h3>Gig-First Credit</h3>
+          <p>Coming soon. Credit underwritten on your actual cash flow — not a T4. Limits that grow as your data history deepens.</p>
+          <div class="sol-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLYWHEEL SECTION -->
+  <section class="flywheel-section">
+    <div class="container flywheel-container">
+      <div class="flywheel-text">
+        <div class="section-tag">The Data Flywheel</div>
+        <h2>Gets smarter every week.</h2>
+        <p>Every transaction, platform connection, and bill payment makes your Vero insights more accurate. Over time, this builds your Volatility Score — a proprietary measure of your income stability that powers access to credit no traditional lender would offer you.</p>
+        <button class="cta-btn" onclick="openWaitlist()">Start Building Your Score</button>
+      </div>
+      <div class="flywheel-visual">
+        <canvas id="flywheelChart" width="400" height="400"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="social-section">
+    <div class="container">
+      <div class="section-tag">Built for Real Workers</div>
+      <h2 class="section-title">What gig workers actually need</h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <div class="t-quote">"I drive Uber mornings and do DoorDash evenings. I have no idea what I actually make until I add it all up on Sunday. Vero would change everything."</div>
+          <div class="t-author">
+            <div class="t-avatar">MK</div>
+            <div>
+              <div class="t-name">Marcus K.</div>
+              <div class="t-role">Uber + DoorDash, Toronto</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="t-quote">"My biggest stress is not knowing if I'll have enough for rent. If an app could just tell me 'you're short, drive Thursday night' — that's worth everything to me."</div>
+          <div class="t-author">
+            <div class="t-avatar">SR</div>
+            <div>
+              <div class="t-name">Sofia R.</div>
+              <div class="t-role">Instacart + Amazon Flex, Vancouver</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="t-quote">"Three banks declined me for a credit card even though I've been earning steadily for two years. The system is broken for people like us."</div>
+          <div class="t-author">
+            <div class="t-avatar">JL</div>
+            <div>
+              <div class="t-name">James L.</div>
+              <div class="t-role">SkipTheDishes, Calgary</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Banking that works as hard as you do.</h2>
+      <p>Launching in Toronto first. Join the waitlist and be first to know when Vero opens in your city.</p>
+      <button class="cta-btn large" onclick="openWaitlist()">Reserve Your Spot — It's Free</button>
+    </div>
+  </section>
+
+</div><!-- end home -->
+
+<!-- ===== AI INSIGHTS PAGE ===== -->
+<div id="page-ai" class="page">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-eyebrow">AI Insights Engine</div>
+      <h1>Your financial copilot,<br><em>always one step ahead.</em></h1>
+      <p>Vero's AI doesn't just categorize your spending. It reads your income patterns, connects your gig platforms, and tells you what's coming before you have to worry about it.</p>
+      <button class="cta-btn" onclick="openWaitlist()">Join the Waitlist</button>
+    </div>
+  </section>
+
+  <!-- INSIGHT DEMOS -->
+  <section class="insight-demos">
+    <div class="container">
+      <div class="section-tag">Live Intelligence</div>
+      <h2 class="section-title">Three insights that change everything</h2>
+      <div class="demo-tabs">
+        <button class="demo-tab active" onclick="switchDemo(0)">Bill Readiness</button>
+        <button class="demo-tab" onclick="switchDemo(1)">Shortfall Alert</button>
+        <button class="demo-tab" onclick="switchDemo(2)">Earn More</button>
+      </div>
+      <div class="demo-panels">
+        <div class="demo-panel active" id="demo0">
+          <div class="demo-phone">
+            <div class="demo-notification ready">
+              <div class="notif-icon">📅</div>
+              <div class="notif-body">
+                <div class="notif-title">Car payment in 7 days</div>
+                <div class="notif-text">Your $632 payment is due Feb 14. Based on your current earnings pace, you'll have $1,240 available. <strong>You're on track ✓</strong></div>
+              </div>
+            </div>
+            <div class="demo-chart-area">
+              <canvas id="billReadinessChart" width="340" height="180"></canvas>
+            </div>
+          </div>
+          <div class="demo-copy">
+            <h3>Bill Readiness Alerts</h3>
+            <p>Vero tracks every upcoming bill against your current earnings pace. Instead of discovering a shortfall on payment day, you get confirmed clearance — or early warning — days in advance.</p>
+            <ul class="feature-list">
+              <li>Bills mapped to your exact due dates</li>
+              <li>Real-time earnings pace tracking across all platforms</li>
+              <li>Automatic reassessment as new earnings land</li>
+              <li>Coverage confirmed in plain language, not percentages</li>
+            </ul>
+          </div>
+        </div>
+        <div class="demo-panel" id="demo1">
+          <div class="demo-phone">
+            <div class="demo-notification warning">
+              <div class="notif-icon">⚠️</div>
+              <div class="notif-body">
+                <div class="notif-title">Shortfall detected — rent in 3 days</div>
+                <div class="notif-text">At your current pace you'll be <strong>$292 short</strong> for rent. Driving 3 hours on Uber Friday night could close most of that gap.</div>
+              </div>
+            </div>
+            <div class="demo-chart-area">
+              <canvas id="shortfallChart" width="340" height="180"></canvas>
+            </div>
+          </div>
+          <div class="demo-copy">
+            <h3>Shortfall Detection & Action Plans</h3>
+            <p>When a gap is detected, Vero doesn't just tell you — it calculates the specific earnings boost you'd need and identifies when and where to get it, while there's still time to act.</p>
+            <ul class="feature-list">
+              <li>Gap calculated to the dollar, not a vague warning</li>
+              <li>Specific hours and platform recommendations</li>
+              <li>Alerts 3–7 days before the due date</li>
+              <li>Based on your personal earnings history</li>
+            </ul>
+          </div>
+        </div>
+        <div class="demo-panel" id="demo2">
+          <div class="demo-phone">
+            <div class="demo-notification insight">
+              <div class="notif-icon">💡</div>
+              <div class="notif-body">
+                <div class="notif-title">Earnings tip for this week</div>
+                <div class="notif-text">DoorDash earns 12% more than Uber on Thursdays 11am–2pm. Based on your history, shifting 2 hours could add ~$40 to your week.</div>
+              </div>
+            </div>
+            <div class="demo-chart-area">
+              <canvas id="earnMoreChart" width="340" height="180"></canvas>
+            </div>
+          </div>
+          <div class="demo-copy">
+            <h3>Earnings Optimization</h3>
+            <p>Vero learns which platforms pay better at what times and in what areas — and compares that to your own history. The result is personalized recommendations that actually move the needle.</p>
+            <ul class="feature-list">
+              <li>Platform-vs-platform hourly earnings comparison</li>
+              <li>Time-of-day and day-of-week patterns</li>
+              <li>Personalized from your own history</li>
+              <li>City-level demand signals as user base grows</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOLATILITY SCORE -->
+  <section class="volatility-section">
+    <div class="container">
+      <div class="vol-content">
+        <div class="section-tag">Proprietary Score</div>
+        <h2>Your Volatility Score</h2>
+        <p>Every month you're on Vero, your data builds a Volatility Score — a proprietary measure of your income stability and financial resilience. It's what makes Phase 2 credit possible: underwriting based on what we actually know about you, not a T4 you don't have.</p>
+        <div class="score-metrics">
+          <div class="score-metric">
+            <div class="metric-bar-wrap">
+              <div class="metric-label">Income Consistency</div>
+              <div class="metric-track"><div class="metric-fill score-high" style="width:78%"></div></div>
+              <div class="metric-val score-high">78</div>
+            </div>
+          </div>
+          <div class="score-metric">
+            <div class="metric-bar-wrap">
+              <div class="metric-label">Platform Diversity</div>
+              <div class="metric-track"><div class="metric-fill score-high" style="width:85%"></div></div>
+              <div class="metric-val score-high">85</div>
+            </div>
+          </div>
+          <div class="score-metric">
+            <div class="metric-bar-wrap">
+              <div class="metric-label">Bill Coverage Rate</div>
+              <div class="metric-track"><div class="metric-fill score-high" style="width:91%"></div></div>
+              <div class="metric-val score-high">91</div>
+            </div>
+          </div>
+          <div class="score-metric">
+            <div class="metric-bar-wrap">
+              <div class="metric-label">Savings Behaviour</div>
+              <div class="metric-track"><div class="metric-fill score-mid" style="width:62%"></div></div>
+              <div class="metric-val score-mid">62</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vol-visual">
+        <canvas id="volatilityGauge" width="320" height="320"></canvas>
+        <div class="gauge-label">Overall Score</div>
+        <div class="gauge-score">79</div>
+        <div class="gauge-tier">Good Standing</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUDGETING AI -->
+  <section class="budgeting-section">
+    <div class="container">
+      <div class="section-tag">Budgeting & Savings</div>
+      <h2 class="section-title">Built for irregular income</h2>
+      <div class="budget-grid">
+        <div class="budget-card">
+          <div class="budget-icon">〰️</div>
+          <h3>Income Smoothing</h3>
+          <p>Automatically set aside from high-earning weeks to cover predictably lower ones. Your bills stay paid even when demand dips.</p>
+        </div>
+        <div class="budget-card">
+          <div class="budget-icon">🧾</div>
+          <h3>Tax Set-Aside</h3>
+          <p>Recommendations based on your estimated income and self-employment obligations — no more year-end tax shocks.</p>
+        </div>
+        <div class="budget-card">
+          <div class="budget-icon">🎯</div>
+          <h3>Goal Savings</h3>
+          <p>Emergency fund, vehicle maintenance, new gear. Goals sized to your actual cash-flow patterns, not a fixed monthly salary.</p>
+        </div>
+        <div class="budget-card">
+          <div class="budget-icon">📊</div>
+          <h3>Debt Sequencing</h3>
+          <p>Pay-down recommendations based on your balances, rates, and available surplus — optimized for your actual financial situation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA CONNECTIONS -->
+  <section class="connections-section">
+    <div class="container">
+      <div class="section-tag">Platform Connections</div>
+      <h2 class="section-title">All your earnings, one place</h2>
+      <p class="section-sub">Vero connects to your gig platforms directly, aggregating earnings in real time so you never have to open five apps to know where you stand.</p>
+      <div class="platform-grid">
+        <div class="platform-tile"><div class="ptile-logo">Uber</div><div class="ptile-status connected">Connected</div></div>
+        <div class="platform-tile"><div class="ptile-logo">Lyft</div><div class="ptile-status connected">Connected</div></div>
+        <div class="platform-tile"><div class="ptile-logo">DoorDash</div><div class="ptile-status connected">Connected</div></div>
+        <div class="platform-tile"><div class="ptile-logo">SkipTheDishes</div><div class="ptile-status connected">Connected</div></div>
+        <div class="platform-tile"><div class="ptile-logo">Instacart</div><div class="ptile-status connected">Connected</div></div>
+        <div class="platform-tile"><div class="ptile-logo">Amazon Flex</div><div class="ptile-status coming">Coming Soon</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-cta">
+    <div class="container">
+      <h2>The financial copilot gig workers have been waiting for.</h2>
+      <button class="cta-btn large" onclick="openWaitlist()">Join the Waitlist</button>
+    </div>
+  </section>
+
+</div><!-- end ai -->
+
+<!-- ===== APP PAGE ===== -->
+<div id="page-app" class="page">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-eyebrow">The Vero App</div>
+      <h1>Every number that matters,<br><em>in one place.</em></h1>
+      <p>The Vero app is your unified financial dashboard. See combined earnings, upcoming bills, AI recommendations, and your Vero card balance — all on one screen, always up to date.</p>
+      <button class="cta-btn" onclick="openWaitlist()">Get Early Access</button>
+    </div>
+  </section>
+
+  <!-- APP DASHBOARD SHOWCASE -->
+  <section class="app-showcase">
+    <div class="container">
+      <div class="section-tag">Dashboard</div>
+      <h2 class="section-title">Your financial command centre</h2>
+      <div class="app-dashboard">
+        <div class="dashboard-sidebar">
+          <div class="db-nav-item active">Overview</div>
+          <div class="db-nav-item">Earnings</div>
+          <div class="db-nav-item">Bills & Budget</div>
+          <div class="db-nav-item">Insights</div>
+          <div class="db-nav-item">Card</div>
+          <div class="db-nav-item">Settings</div>
+        </div>
+        <div class="dashboard-main">
+          <div class="db-header">
+            <div class="db-welcome">Wednesday, Feb 12</div>
+            <div class="db-balance-row">
+              <div>
+                <div class="db-balance-label">Available Balance</div>
+                <div class="db-balance-num">$3,247.82</div>
+              </div>
+              <div class="db-status-badge">All systems ✓</div>
+            </div>
+          </div>
+          <div class="db-widgets">
+            <div class="db-widget earnings-widget">
+              <div class="widget-label">This Week's Earnings</div>
+              <div class="widget-total">$393.00</div>
+              <canvas id="weekEarningsChart" width="260" height="80"></canvas>
+              <div class="platform-breakdown">
+                <div class="pb-item"><span class="pb-dot"></span>Uber $186</div>
+                <div class="pb-item"><span class="pb-dot" style="opacity:0.6"></span>DoorDash $124</div>
+                <div class="pb-item"><span class="pb-dot" style="opacity:0.35"></span>Instacart $83</div>
+              </div>
+            </div>
+            <div class="db-widget bills-widget">
+              <div class="widget-label">Upcoming Bills</div>
+              <div class="bill-item covered">
+                <div class="bill-name">Rent</div>
+                <div class="bill-date">Feb 15</div>
+                <div class="bill-amount">$1,850</div>
+                <div class="bill-status ok">✓</div>
+              </div>
+              <div class="bill-item covered">
+                <div class="bill-name">Car Payment</div>
+                <div class="bill-date">Feb 14</div>
+                <div class="bill-amount">$632</div>
+                <div class="bill-status ok">✓</div>
+              </div>
+              <div class="bill-item watch">
+                <div class="bill-name">Insurance</div>
+                <div class="bill-date">Feb 22</div>
+                <div class="bill-amount">$280</div>
+                <div class="bill-status warn">!</div>
+              </div>
+            </div>
+            <div class="db-widget ai-widget">
+              <div class="widget-label">AI Insight</div>
+              <div class="ai-bubble">
+                <div class="ai-pulse"></div>
+                <p>DoorDash earns 12% more than Uber on Thursdays 11am–2pm. Shifting 2 hours tomorrow could add ~$40 to your week.</p>
+              </div>
+            </div>
+            <div class="db-widget month-widget">
+              <div class="widget-label">Monthly Overview</div>
+              <canvas id="monthlyChart" width="260" height="100"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP FEATURES -->
+  <section class="app-features">
+    <div class="container">
+      <div class="section-tag">Core Features</div>
+      <h2 class="section-title">Designed for your workflow</h2>
+      <div class="features-list">
+        <div class="feature-row">
+          <div class="feat-icon">📊</div>
+          <div class="feat-content">
+            <h3>Unified Earnings Dashboard</h3>
+            <p>One view. All platforms. Total earnings across Uber, DoorDash, Instacart, and more — by day, week, or month. No more switching apps to know where you stand.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feat-icon">🔔</div>
+          <div class="feat-content">
+            <h3>Proactive Notifications</h3>
+            <p>Bill readiness confirmations. Shortfall alerts. Earnings tips. Vero sends you the right alert at the right time — before you need to worry, not after.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feat-icon">💳</div>
+          <div class="feat-content">
+            <h3>Instant Card Controls</h3>
+            <p>Freeze or unfreeze your Vero card instantly. Set spending limits by category. View every transaction the moment it clears.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feat-icon">💸</div>
+          <div class="feat-content">
+            <h3>Interac e-Transfer</h3>
+            <p>Send and receive money with any Canadian bank in minutes. Set up automatic transfers to savings pots or pay contacts directly from the app.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feat-icon">📈</div>
+          <div class="feat-content">
+            <h3>Earnings Trends & Reports</h3>
+            <p>Monthly summaries, year-to-date earnings, and platform-by-platform breakdowns. Everything you need for taxes and financial planning in one tap.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOBILE FIRST -->
+  <section class="mobile-section">
+    <div class="container">
+      <div class="mobile-content">
+        <div class="section-tag">iOS & Android</div>
+        <h2>Built mobile-first. Available everywhere.</h2>
+        <p>Gig workers don't sit at desks. Vero is designed for your phone — fast, lightweight, and accessible with Face ID or fingerprint. Full functionality, wherever you're earning.</p>
+        <div class="mobile-badges">
+          <div class="store-badge" onclick="openWaitlist()">
+            <div class="badge-icon">🍎</div>
+            <div><div class="badge-small">Coming to</div><div class="badge-large">App Store</div></div>
+          </div>
+          <div class="store-badge" onclick="openWaitlist()">
+            <div class="badge-icon">▶</div>
+            <div><div class="badge-small">Coming to</div><div class="badge-large">Google Play</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-cta">
+    <div class="container">
+      <h2>Be first to download when we launch.</h2>
+      <button class="cta-btn large" onclick="openWaitlist()">Join the Waitlist</button>
+    </div>
+  </section>
+
+</div><!-- end app -->
+
+<!-- ===== DEPOSIT PAGE ===== -->
+<div id="page-deposit" class="page">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-eyebrow">Deposit Account</div>
+      <h1>A real Canadian bank account<br><em>that works for gig workers.</em></h1>
+      <p>Full-featured deposit account with a Canadian transit number. Receive direct deposits from every gig platform, send Interac e-Transfers, and pay bills — all from one account.</p>
+      <button class="cta-btn" onclick="openWaitlist()">Open Your Account</button>
+    </div>
+  </section>
+
+  <!-- ACCOUNT FEATURES -->
+  <section class="deposit-features">
+    <div class="container">
+      <div class="section-tag">What's Included</div>
+      <h2 class="section-title">Everything a bank account should be</h2>
+      <div class="deposit-grid">
+        <div class="deposit-card big">
+          <h3>Direct Deposit from All Platforms</h3>
+          <p>Your Vero account comes with a Canadian routing and transit number. Set it as your payout destination on Uber, DoorDash, Instacart, and more. Earnings land in one place, automatically.</p>
+          <div class="deposit-visual">
+            <div class="flow-items">
+              <div class="flow-source">Uber</div>
+              <div class="flow-source">DoorDash</div>
+              <div class="flow-source">Instacart</div>
+              <div class="flow-source">Amazon Flex</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-dest">
+              <div class="flow-dest-logo">V</div>
+              <div>Vero Account</div>
+            </div>
+          </div>
+        </div>
+        <div class="deposit-card">
+          <div class="dep-icon">⚡</div>
+          <h3>Interac e-Transfer</h3>
+          <p>Send and receive in minutes with any Canadian bank. No delays, no third-party apps.</p>
+        </div>
+        <div class="deposit-card">
+          <div class="dep-icon">📋</div>
+          <h3>Bill Payment</h3>
+          <p>Pay any Canadian biller directly from your Vero account. Set up pre-authorized debits with one tap.</p>
+        </div>
+        <div class="deposit-card">
+          <div class="dep-icon">🏧</div>
+          <h3>ATM Access</h3>
+          <p>Withdraw cash at ATMs across Canada. Vero covers fees at in-network machines.</p>
+        </div>
+        <div class="deposit-card">
+          <div class="dep-icon">🔒</div>
+          <h3>CDIC-Eligible</h3>
+          <p>Deposits held with our licensed Canadian partner institution. Eligible for CDIC deposit protection.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EARNINGS TIMELINE -->
+  <section class="earnings-timeline">
+    <div class="container">
+      <div class="section-tag">Cash Flow View</div>
+      <h2 class="section-title">See money in before money out</h2>
+      <div class="timeline-widget">
+        <div class="timeline-header">
+          <span>February 2025</span>
+          <div class="timeline-legend">
+            <span class="leg-in">● Earnings</span>
+            <span class="leg-out">● Bills</span>
+          </div>
+        </div>
+        <canvas id="cashflowChart" width="800" height="200"></canvas>
+        <div class="timeline-summary">
+          <div class="ts-item"><div class="ts-label">Total earnings</div><div class="ts-val positive">+$2,847</div></div>
+          <div class="ts-item"><div class="ts-label">Total bills</div><div class="ts-val">−$2,190</div></div>
+          <div class="ts-item"><div class="ts-label">Net surplus</div><div class="ts-val positive">+$657</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETUP STEPS -->
+  <section class="setup-section">
+    <div class="container">
+      <div class="section-tag">Getting Started</div>
+      <h2 class="section-title">Open in minutes</h2>
+      <div class="setup-steps">
+        <div class="setup-step">
+          <div class="step-num">1</div>
+          <h3>Create your account</h3>
+          <p>Download Vero and complete a simple, fully digital KYC process. No branch visit. No paper forms.</p>
+        </div>
+        <div class="step-connector"></div>
+        <div class="setup-step">
+          <div class="step-num">2</div>
+          <h3>Connect your platforms</h3>
+          <p>Link your gig accounts in a few taps. Vero aggregates your earnings automatically from day one.</p>
+        </div>
+        <div class="step-connector"></div>
+        <div class="setup-step">
+          <div class="step-num">3</div>
+          <h3>Set your deposit destination</h3>
+          <p>Update your payout settings on each platform to send earnings directly to your Vero account.</p>
+        </div>
+        <div class="step-connector"></div>
+        <div class="setup-step">
+          <div class="step-num">4</div>
+          <h3>Let Vero guide you</h3>
+          <p>From day one, your AI insights are active. Bill alerts, earnings tips, and cash-flow clarity start immediately.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section">
+    <div class="container">
+      <div class="section-tag">Pricing</div>
+      <h2 class="section-title">Simple. Transparent. No surprises.</h2>
+      <div class="pricing-cards">
+        <div class="pricing-card">
+          <div class="price-tier">Essential</div>
+          <div class="price-amount">$0<span>/mo</span></div>
+          <ul class="price-features">
+            <li>✓ Full deposit account</li>
+            <li>✓ Vero debit card</li>
+            <li>✓ Interac e-Transfer</li>
+            <li>✓ Bill payment</li>
+            <li>✓ Core AI insights</li>
+            <li>✓ 2 gig platform connections</li>
+          </ul>
+          <button class="price-btn" onclick="openWaitlist()">Join Waitlist</button>
+        </div>
+        <div class="pricing-card featured">
+          <div class="featured-badge">Most Popular</div>
+          <div class="price-tier">Pro</div>
+          <div class="price-amount">$7<span>/mo</span></div>
+          <ul class="price-features">
+            <li>✓ Everything in Essential</li>
+            <li>✓ Unlimited platform connections</li>
+            <li>✓ Advanced earnings optimization</li>
+            <li>✓ Tax set-aside AI</li>
+            <li>✓ Higher e-Transfer limits</li>
+            <li>✓ Priority support</li>
+          </ul>
+          <button class="price-btn featured-btn" onclick="openWaitlist()">Join Waitlist</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-cta">
+    <div class="container">
+      <h2>Your earnings deserve a smarter home.</h2>
+      <button class="cta-btn large" onclick="openWaitlist()">Join the Waitlist</button>
+    </div>
+  </section>
+
+</div><!-- end deposit -->
+
+<!-- ===== CARD PAGE ===== -->
+<div id="page-card" class="page">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-eyebrow">The Vero Card</div>
+      <h1>Spend your earnings<br><em>the moment they land.</em></h1>
+      <p>A premium Mastercard debit card that works everywhere. No holds. No delays. Spend what you've earned, instantly.</p>
+      <button class="cta-btn" onclick="openWaitlist()">Get Your Card</button>
+    </div>
+  </section>
+
+  <!-- CARD SHOWCASE -->
+  <section class="card-showcase">
+    <div class="container">
+      <div class="card-visual-area">
+        <div class="credit-card" id="cardFront">
+          <div class="card-chip"></div>
+          <div class="card-logo-area">
+            <span class="card-vero">Vero</span>
+          </div>
+          <div class="card-number">•••• •••• •••• 4821</div>
+          <div class="card-bottom">
+            <div>
+              <div class="card-label">Card Holder</div>
+              <div class="card-name">Alex Martinez</div>
+            </div>
+            <div>
+              <div class="card-label">Expires</div>
+              <div class="card-name">09/28</div>
+            </div>
+            <div class="mc-logo">
+              <div class="mc-left"></div>
+              <div class="mc-right"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-features-list">
+          <div class="card-feat">
+            <div class="cf-icon">⚡</div>
+            <div>
+              <div class="cf-title">Instant spend</div>
+              <div class="cf-desc">Access earnings as soon as they clear — no waiting period</div>
+            </div>
+          </div>
+          <div class="card-feat">
+            <div class="cf-icon">🌍</div>
+            <div>
+              <div class="cf-title">Works everywhere</div>
+              <div class="cf-desc">Accepted everywhere Mastercard is — online and in-store</div>
+            </div>
+          </div>
+          <div class="card-feat">
+            <div class="cf-icon">📱</div>
+            <div>
+              <div class="cf-title">Apple Pay & Google Pay</div>
+              <div class="cf-desc">Add to your digital wallet and tap to pay</div>
+            </div>
+          </div>
+          <div class="card-feat">
+            <div class="cf-icon">🔒</div>
+            <div>
+              <div class="cf-title">Instant freeze/unfreeze</div>
+              <div class="cf-desc">Lost your card? Freeze it in the app in one tap</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEND ANALYTICS -->
+  <section class="spend-section">
+    <div class="container">
+      <div class="section-tag">Spend Analytics</div>
+      <h2 class="section-title">Know exactly where your money goes</h2>
+      <div class="spend-dashboard">
+        <div class="spend-chart-area">
+          <canvas id="spendChart" width="340" height="340"></canvas>
+          <div class="spend-center">
+            <div class="spend-total">$2,190</div>
+            <div class="spend-label">Feb spend</div>
+          </div>
+        </div>
+        <div class="spend-breakdown">
+          <div class="spend-category"><div class="sc-color" style="background:#818CF8"></div><div class="sc-name">Vehicle & fuel</div><div class="sc-amount">$680</div><div class="sc-pct">31%</div></div>
+          <div class="spend-category"><div class="sc-color" style="background:#F472B6"></div><div class="sc-name">Rent & utilities</div><div class="sc-amount">$1,850</div><div class="sc-pct" style="color:#6B6B6B">—</div></div>
+          <div class="spend-category"><div class="sc-color" style="background:#38BDF8"></div><div class="sc-name">Groceries</div><div class="sc-amount">$310</div><div class="sc-pct">14%</div></div>
+          <div class="spend-category"><div class="sc-color" style="background:#FB923C"></div><div class="sc-name">Phone & data</div><div class="sc-amount">$85</div><div class="sc-pct">4%</div></div>
+          <div class="spend-category"><div class="sc-color" style="background:#6B6B6B"></div><div class="sc-name">Other</div><div class="sc-amount">$265</div><div class="sc-pct">12%</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSACTION FEED -->
+  <section class="transactions-section">
+    <div class="container">
+      <div class="section-tag">Transaction History</div>
+      <h2 class="section-title">Every transaction, in real time</h2>
+      <div class="tx-feed">
+        <div class="tx-date-group">Today</div>
+        <div class="tx-item">
+          <div class="tx-icon">⛽</div>
+          <div class="tx-details">
+            <div class="tx-merchant">Petro-Canada</div>
+            <div class="tx-time">2:34 PM</div>
+          </div>
+          <div class="tx-amount negative">−$62.40</div>
+        </div>
+        <div class="tx-item earning">
+          <div class="tx-icon">🟢</div>
+          <div class="tx-details">
+            <div class="tx-merchant">Uber Technologies</div>
+            <div class="tx-time">11:12 AM — Direct deposit</div>
+          </div>
+          <div class="tx-amount positive">+$186.00</div>
+        </div>
+        <div class="tx-date-group">Yesterday</div>
+        <div class="tx-item">
+          <div class="tx-icon">🛒</div>
+          <div class="tx-details">
+            <div class="tx-merchant">No Frills</div>
+            <div class="tx-time">6:15 PM</div>
+          </div>
+          <div class="tx-amount negative">−$94.22</div>
+        </div>
+        <div class="tx-item earning">
+          <div class="tx-icon">🟢</div>
+          <div class="tx-details">
+            <div class="tx-merchant">DoorDash Canada</div>
+            <div class="tx-time">5:00 PM — Direct deposit</div>
+          </div>
+          <div class="tx-amount positive">+$124.00</div>
+        </div>
+        <div class="tx-item">
+          <div class="tx-icon">📱</div>
+          <div class="tx-details">
+            <div class="tx-merchant">Rogers Communications</div>
+            <div class="tx-time">12:00 AM — Auto-pay</div>
+          </div>
+          <div class="tx-amount negative">−$85.00</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTROLS -->
+  <section class="controls-section">
+    <div class="container">
+      <div class="section-tag">Card Controls</div>
+      <h2 class="section-title">Your card, your rules</h2>
+      <div class="controls-grid">
+        <div class="control-item">
+          <div class="control-icon">❄️</div>
+          <h3>Instant Freeze</h3>
+          <p>Misplaced your card? Freeze it in the app instantly. Unfreeze just as fast when you find it.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-icon">💰</div>
+          <h3>Spending Limits</h3>
+          <p>Set daily or per-transaction limits on your card. Great for keeping fuel costs in check.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-icon">🌐</div>
+          <h3>Online / In-Store Toggle</h3>
+          <p>Enable or disable card-not-present transactions. Lock down online spend when you don't need it.</p>
+        </div>
+        <div class="control-item">
+          <div class="control-icon">🔔</div>
+          <h3>Instant Alerts</h3>
+          <p>Push notification the moment any transaction clears. See every spend in real time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-cta">
+    <div class="container">
+      <h2>A card as dynamic as your earnings.</h2>
+      <button class="cta-btn large" onclick="openWaitlist()">Join the Waitlist</button>
+    </div>
+  </section>
+
+</div><!-- end card -->
+
+<!-- ===== CREDIT PAGE ===== -->
+<div id="page-credit" class="page">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-eyebrow">Credit — Coming in Phase 2</div>
+      <h1>Credit that finally<br><em>sees your income.</em></h1>
+      <p>Traditional lenders declined you because they couldn't read your income. Vero builds a complete picture of your cash flow from day one — so when we launch credit, it's underwritten on what we actually know about you.</p>
+      <button class="cta-btn" onclick="openWaitlist()">Start Building Your Score</button>
+    </div>
+  </section>
+
+  <!-- WHY DECLINED -->
+  <section class="declined-section">
+    <div class="container">
+      <div class="section-tag">The Problem</div>
+      <h2 class="section-title">The system was built for T4s</h2>
+      <div class="declined-visual">
+        <div class="bank-decline">
+          <h3>Traditional Bank Sees:</h3>
+          <ul class="decline-list">
+            <li class="decline-item bad">✗ No T4 or pay stub</li>
+            <li class="decline-item bad">✗ Multiple income sources</li>
+            <li class="decline-item bad">✗ Variable monthly earnings</li>
+            <li class="decline-item bad">✗ Self-employed classification</li>
+          </ul>
+          <div class="outcome bad-outcome">Application Declined</div>
+        </div>
+        <div class="vs-divider">VS</div>
+        <div class="vero-approve">
+          <h3>Vero Sees:</h3>
+          <ul class="decline-list">
+            <li class="decline-item good">✓ 18 months of verified income</li>
+            <li class="decline-item good">✓ Platform diversity = resilience</li>
+            <li class="decline-item good">✓ Bill coverage rate: 94%</li>
+            <li class="decline-item good">✓ Savings behaviour improving</li>
+          </ul>
+          <div class="outcome good-outcome">Credit Approved</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="credit-how">
+    <div class="container">
+      <div class="section-tag">How Vero Credit Works</div>
+      <h2 class="section-title">Data-driven underwriting, not assumptions</h2>
+      <div class="credit-steps">
+        <div class="credit-step">
+          <div class="cs-num">Phase 1</div>
+          <h3>Build Your Profile</h3>
+          <p>Use Vero as your primary bank account. Every transaction, earnings deposit, and bill payment builds your financial profile and improves your Volatility Score.</p>
+        </div>
+        <div class="credit-step">
+          <div class="cs-num">~6 months</div>
+          <h3>Establish Track Record</h3>
+          <p>Six months of data gives Vero a genuine picture of your income patterns — far more accurate than a credit bureau score or a single income figure.</p>
+        </div>
+        <div class="credit-step">
+          <div class="cs-num">Phase 2</div>
+          <h3>Unlock Credit</h3>
+          <p>Credit limits set dynamically based on your actual income trends, spending behaviour, and Volatility Score. Limits grow as your data history deepens.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDIT PRODUCT PREVIEW -->
+  <section class="credit-preview">
+    <div class="container">
+      <div class="section-tag">Product Preview</div>
+      <h2 class="section-title">Credit designed for cash-flow reality</h2>
+      <div class="credit-features">
+        <div class="credit-feat-card">
+          <h3>Dynamic Credit Limits</h3>
+          <p>Limits set and updated based on your rolling income and spending data — not a static annual income figure that goes stale the moment you change platforms.</p>
+        </div>
+        <div class="credit-feat-card">
+          <h3>Volatility-Aware Repayments</h3>
+          <p>Minimum payments that can flex with your earnings in a given period. In a slow week, your minimum scales accordingly — then recovers in better weeks.</p>
+        </div>
+        <div class="credit-feat-card">
+          <h3>Conservative Start, Data-Driven Growth</h3>
+          <p>We start with conservative limits and expand them as your track record deepens. Less risk for you. Less risk for us. Better outcomes for everyone.</p>
+        </div>
+        <div class="credit-feat-card">
+          <h3>No T4 Required</h3>
+          <p>Gig income is verified directly through platform connections. Your months of earnings history is the proof — no tax documents needed at application.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCORE BUILDING -->
+  <section class="score-building">
+    <div class="container">
+      <div class="score-build-content">
+        <div class="section-tag">Start Now</div>
+        <h2>Every day on Vero builds your case for credit</h2>
+        <p>The earlier you join, the more data history you'll have when Phase 2 launches. Your Volatility Score starts at zero and grows with every week of verified earnings.</p>
+        <div class="score-timeline">
+          <div class="score-milestone">
+            <div class="sm-month">Month 1</div>
+            <div class="sm-score">Score: 40</div>
+            <div class="sm-desc">Basic profile established</div>
+          </div>
+          <div class="sm-connector"></div>
+          <div class="score-milestone">
+            <div class="sm-month">Month 6</div>
+            <div class="sm-score">Score: 68</div>
+            <div class="sm-desc">Credit eligibility review</div>
+          </div>
+          <div class="sm-connector"></div>
+          <div class="score-milestone">
+            <div class="sm-month">Month 12</div>
+            <div class="sm-score">Score: 84</div>
+            <div class="sm-desc">Full credit access</div>
+          </div>
+          <div class="sm-connector"></div>
+          <div class="score-milestone">
+            <div class="sm-month">Month 18+</div>
+            <div class="sm-score">Score: 91+</div>
+            <div class="sm-desc">Expanded limits & best rates</div>
+          </div>
+        </div>
+        <button class="cta-btn" onclick="openWaitlist()">Start Building Today</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-cta">
+    <div class="container">
+      <h2>The credit gig workers have always deserved.</h2>
+      <button class="cta-btn large" onclick="openWaitlist()">Join the Waitlist</button>
+    </div>
+  </section>
+
+</div><!-- end credit -->
+
+<!-- ===== ABOUT PAGE ===== -->
+<div id="page-about" class="page">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-eyebrow">About Vero</div>
+      <h1>Banking hasn't caught up<br><em>to how Canada works.</em></h1>
+      <p>700,000 Canadians earn through gig platforms. Every one of them is underserved by banking designed for 9-to-5 employees. Vero exists to fix that.</p>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="mission-section">
+    <div class="container">
+      <div class="mission-content">
+        <div class="section-tag">Our Mission</div>
+        <blockquote class="mission-quote">"Give every gig worker a financial copilot that treats their income as real, their patterns as data, and their future as worth planning for."</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET -->
+  <section class="market-section">
+    <div class="container">
+      <div class="section-tag">The Opportunity</div>
+      <h2 class="section-title">A market too big to ignore</h2>
+      <div class="market-stats">
+        <div class="market-stat">
+          <div class="ms-num">700K+</div>
+          <div class="ms-label">Canadians doing digital platform work</div>
+          <div class="ms-source">StatCan, Dec 2025</div>
+        </div>
+        <div class="market-stat">
+          <div class="ms-num">49%</div>
+          <div class="ms-label">Growth in a single year (2023–2024)</div>
+          <div class="ms-source">From 468K to 700K</div>
+        </div>
+        <div class="market-stat">
+          <div class="ms-num">74%</div>
+          <div class="ms-label">Earn gig income specifically to supplement main income</div>
+          <div class="ms-source">Angus Reid Survey 2024</div>
+        </div>
+        <div class="market-stat">
+          <div class="ms-num">7M+</div>
+          <div class="ms-label">Canadians doing any form of gig or contract work</div>
+          <div class="ms-source">Broader definition, Made in CA 2024</div>
+        </div>
+      </div>
+      <canvas id="marketChart" width="900" height="260"></canvas>
+    </div>
+  </section>
+
+  <section class="page-cta">
+    <div class="container">
+      <h2>Help us build the future of gig work banking.</h2>
+      <p>Join the waitlist. Share with your network. Tell us what you need.</p>
+      <button class="cta-btn large" onclick="openWaitlist()">Join the Waitlist</button>
+    </div>
+  </section>
+
+</div><!-- end about -->
+
+</div><!-- end pages -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <span class="logo-mark">V</span>
+        <span class="logo-text">Vero</span>
+      </div>
+      <p>AI-powered banking built for Canada's gig economy. Launching in Toronto.</p>
+      <button class="cta-btn" onclick="openWaitlist()">Join the Waitlist</button>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <div class="footer-col-title">Product</div>
+        <a href="#" onclick="showPage('ai')">AI Insights</a>
+        <a href="#" onclick="showPage('app')">The App</a>
+        <a href="#" onclick="showPage('deposit')">Deposit Account</a>
+        <a href="#" onclick="showPage('card')">Vero Card</a>
+        <a href="#" onclick="showPage('credit')">Credit</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#" onclick="showPage('about')">About</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Vero Technologies Inc. Banking services provided by our licensed Canadian partner institution. Deposits eligible for CDIC protection.</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
